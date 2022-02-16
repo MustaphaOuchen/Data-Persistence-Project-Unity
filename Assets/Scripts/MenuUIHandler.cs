@@ -19,18 +19,21 @@ public class MenuUIHandler : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //scoreText.text = "Boa";
+        if (ScoreManager.Instance.LoadDataJson())
+        {
+            scoreText.text = $"Best Score: {ScoreManager.Instance.Name} {ScoreManager.Instance.Score}";
+            userNameInput.text = ScoreManager.Instance.Name;
+        }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+
 
     //Start new game
     public void StartNew()
     {
+        //Save the entered name
+        ScoreManager.Instance.EnteredName = userNameInput.text;
+
         SceneManager.LoadScene(1);
     }
 
@@ -41,12 +44,5 @@ public class MenuUIHandler : MonoBehaviour
         #else
             Application.Quit(); // original code to quit Unity player
         #endif
-
-        //TODO SAVE HIGH SCORE
-        //MainManager.Instance.Save...();
     }
-
-
-
-
 }
